@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/ygo-deckbuilder/precache-manifest.77308a9ab05dbfe26ecf87b2dd4d6616.js"
+  "/ygo-deckbuilder/precache-manifest.97adab8a2a41db21a165061764b55c8a.js"
 );
 
 workbox.clientsClaim();
