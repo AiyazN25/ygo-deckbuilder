@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-const testHand = (props) => {
+const testHand = React.memo( (props) => {
     const cardsArray = [];
     const totalCardsToShow = Math.min(props.cards.length, props.numCardsToShow);
     for(let i=0; i < totalCardsToShow; i++){
@@ -33,6 +33,6 @@ const testHand = (props) => {
             </Button>
         </Modal.Footer>
     </Modal>)
-}
+})
 
 export default testHand;

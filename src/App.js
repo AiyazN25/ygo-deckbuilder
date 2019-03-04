@@ -48,10 +48,6 @@ class App extends Component {
     }
   }
 
-  componentDidUpdate = () => {
-    // console.log('NEWSTATE', this.state)
-  }
-
   handleSendingCard = (toWhichDeckControl, toWhichCardSection, card, fromWhichDeckControl, fromWhichCardSection) => {
     this.setState((prevState) => {
       if (!fromWhichDeckControl) {
@@ -113,7 +109,6 @@ class App extends Component {
   }
 
   handleCardClicked = (inWhichDeckControl, card, cardIndex, inWhichCardSection) => {
-    // console.log('hCC', inWhichDeckControl, card, cardIndex, inWhichCardSection)
     const modifiedDeckControl = { ...this.state[inWhichDeckControl] };
     modifiedDeckControl.currentViewedCardIndex = cardIndex;
     modifiedDeckControl.currentViewedCard = card;
@@ -226,13 +221,13 @@ class App extends Component {
       .then((json) => {
         const allCards = json[0];
         const uploadedFile = e.target.files[0];
-        try {
-          const type = /text.*/
-          if (uploadedFile.type.match(type) && !uploadedFile.type.match(/text.javascript/)) {
-            var reader = new FileReader();
-            reader.onload = (e) => {
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          this.setState(prevState => {
+            try {
+              const type = /text.*/
               const uploadedTextFile = JSON.parse(e.target.result);
-              this.setState(prevState => {
+              if (uploadedFile.type.match(type) && !uploadedFile.type.match(/text.javascript/)) {
                 const modifiedPrevState = { ...prevState }
                 const modifiedTrunk = { ...prevState.trunk }
                 const modifiedDeck = { ...prevState.deck }
@@ -260,19 +255,18 @@ class App extends Component {
                 modifiedPrevState.deck = modifiedDeck;
                 modifiedPrevState.trunk = modifiedTrunk;
                 return modifiedPrevState;
-              })
+              }
+              else {
+                throw new Error('Invalid file format uploaded')
+              }
             }
-            reader.readAsText(uploadedFile);
-          }
-          else {
-            throw new Error('Invalid file format uploaded')
-          }
+            catch (error) {
+              console.log(error);
+              return { showUploadFailAlert: true }
+            }
+          })
         }
-        catch (e) {
-          console.log(e);
-          this.setState({ showUploadFailAlert: true })
-        }
-
+        if(uploadedFile) reader.readAsText(uploadedFile);
       })
   }
 

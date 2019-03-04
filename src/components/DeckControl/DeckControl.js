@@ -9,7 +9,6 @@ import CardActions from '../CardActions/CardActions';
 const extraDeckTypes = ["Synchro Monster", "Fusion Monster", "XYZ Monster", "Link Monster"];
 
 const getCardActions = function (inWhichDeckControl, inWhichCardSection, genericActionHandler, currentViewedCard) {
-    // console.log(inWhichDeckControl, inWhichCardSection, currentViewedCard)
     let cardActions;
     if (inWhichDeckControl === 'deck') {
         if (inWhichCardSection === 'main') {
@@ -85,8 +84,7 @@ const getCardActions = function (inWhichDeckControl, inWhichCardSection, generic
     return cardActions;
 }
 
-const deckControl = (props) => {
-
+const deckControl = React.memo( (props) => {
     return <Card border="success" style={{ width: '100%', height: '660px', marginTop: '10px' }}>
         <Card.Header>{props.title}</Card.Header>
         <Card.Body>
@@ -152,7 +150,7 @@ const deckControl = (props) => {
             </Row>
         </Card.Body>
     </Card>
-}
+})
 
 
 export default deckControl

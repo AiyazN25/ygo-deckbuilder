@@ -3,7 +3,8 @@ import Modal from 'react-bootstrap/Modal';
 
 const enlargedCard = (props) => (
     <Modal
-        {...props}
+        show={props.show}
+        onHide={props.onHide}
         aria-labelledby="enlarged-card-modal"
     >
         <Modal.Header closeButton>
