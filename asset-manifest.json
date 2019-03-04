@@ -1,13 +1,13 @@
 {
   "main.css": "/ygo-deckbuilder/static/css/main.a4f09626.chunk.css",
-  "main.js": "/ygo-deckbuilder/static/js/main.2281e6f1.chunk.js",
-  "main.js.map": "/ygo-deckbuilder/static/js/main.2281e6f1.chunk.js.map",
+  "main.js": "/ygo-deckbuilder/static/js/main.510698ea.chunk.js",
+  "main.js.map": "/ygo-deckbuilder/static/js/main.510698ea.chunk.js.map",
   "static/js/1.c2dabd7c.chunk.js": "/ygo-deckbuilder/static/js/1.c2dabd7c.chunk.js",
   "static/js/1.c2dabd7c.chunk.js.map": "/ygo-deckbuilder/static/js/1.c2dabd7c.chunk.js.map",
   "runtime~main.js": "/ygo-deckbuilder/static/js/runtime~main.61a1df23.js",
   "runtime~main.js.map": "/ygo-deckbuilder/static/js/runtime~main.61a1df23.js.map",
   "static/css/main.a4f09626.chunk.css.map": "/ygo-deckbuilder/static/css/main.a4f09626.chunk.css.map",
   "index.html": "/ygo-deckbuilder/index.html",
-  "precache-manifest.84751355fb8cf9f599f7de812d604072.js": "/ygo-deckbuilder/precache-manifest.84751355fb8cf9f599f7de812d604072.js",
+  "precache-manifest.be96238dab66d992f4f49987c9ecd2ff.js": "/ygo-deckbuilder/precache-manifest.be96238dab66d992f4f49987c9ecd2ff.js",
   "service-worker.js": "/ygo-deckbuilder/service-worker.js"
 }
