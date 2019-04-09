@@ -23,9 +23,7 @@ const clearWarning = (props) => (
         <Modal.Footer>
             <Button variant="secondary" onClick={props.onHide}>Cancel</Button>
             <Button variant="danger"
-                onClick={() => props.onClearButtonClick(
-                    props.whatWillBeCleared.whichDeckControl,
-                    props.whatWillBeCleared.whichCardsSection)}>
+                onClick={props.onClearButtonClick}>
                 Clear
             </Button>
         </Modal.Footer>

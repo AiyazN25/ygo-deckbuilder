@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { selectCard, sortCards, filterCards, openClearWarningModal, openEnlargedCardModal, sendCard } from '../../redux/actions/actionCreators'
+import { connect } from "react-redux";
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -84,7 +86,11 @@ const getCardActions = function (inWhichDeckControl, inWhichCardSection, generic
     return cardActions;
 }
 
-const deckControl = React.memo( (props) => {
+const deckControl = (props) => {
+    const onCardClickInMainSection = useCallback((card, index) => { props.cardClicked(props.title.toLowerCase(), card, index, 'main') });
+    const onCardClickInSideSection = useCallback((card, index) => { props.cardClicked(props.title.toLowerCase(), card, index, 'side') });
+    const onCardClickInExtraSection = useCallback((card, index) => { props.cardClicked(props.title.toLowerCase(), card, index, 'extra') });
+
     return <Card border="success" style={{ width: '100%', height: '660px', marginTop: '10px' }}>
         <Card.Header>{props.title}</Card.Header>
         <Card.Body>
@@ -92,46 +98,43 @@ const deckControl = React.memo( (props) => {
                 <Col style={{ height: '100%' }} xs={9}>
                     <CardsSection
                         inWhichDeckControl={props.title.toLowerCase()}
-                        cards={props.fullDeckData.main}
-                        onCardClick={(card, index) => props.cardClicked(props.title.toLowerCase(), card, index, 'main')}
+                        cards={props.fullDeckData.main.cards}
+                        onCardClick={onCardClickInMainSection}
                         isSortable
                         sortCardsInSectionHandler={props.sortCardsInSectionHandler}
                         isSearchable
                         filterCardsInSectionHandler={props.filterCardsInSectionHandler}
-                        searchFilterValue={props.fullDeckData.mainSearchFilterValue}
+                        searchFilterValue={props.fullDeckData.main.searchFilterValue}
                         isClearable
                         clearWarningModalOpenHandler={props.clearWarningModalOpenHandler}
                         style={{ width: '100%', height: '37%', marginTop: '2%' }}
-                        type="Main"
-                        title={(numCards) => 'Main Deck Cards ' + numCards} />
+                        type="Main" />
                     <CardsSection
                         inWhichDeckControl={props.title.toLowerCase()}
-                        cards={props.fullDeckData.side}
-                        onCardClick={(card, index) => props.cardClicked(props.title.toLowerCase(), card, index, 'side')}
+                        cards={props.fullDeckData.side.cards}
+                        onCardClick={onCardClickInSideSection}
                         isSortable
                         sortCardsInSectionHandler={props.sortCardsInSectionHandler}
                         isSearchable
                         filterCardsInSectionHandler={props.filterCardsInSectionHandler}
-                        searchFilterValue={props.fullDeckData.sideSearchFilterValue}
+                        searchFilterValue={props.fullDeckData.side.searchFilterValue}
                         isClearable
                         clearWarningModalOpenHandler={props.clearWarningModalOpenHandler}
                         style={{ width: '100%', height: '27%', marginTop: '2%' }}
-                        type="Side"
-                        title={(numCards) => 'Side Deck Cards ' + numCards} />
+                        type="Side" />
                     <CardsSection
                         inWhichDeckControl={props.title.toLowerCase()}
-                        cards={props.fullDeckData.extra}
-                        onCardClick={(card, index) => props.cardClicked(props.title.toLowerCase(), card, index, 'extra')}
+                        cards={props.fullDeckData.extra.cards}
+                        onCardClick={onCardClickInExtraSection}
                         isSortable
                         sortCardsInSectionHandler={props.sortCardsInSectionHandler}
                         isSearchable
                         filterCardsInSectionHandler={props.filterCardsInSectionHandler}
-                        searchFilterValue={props.fullDeckData.extraSearchFilterValue}
+                        searchFilterValue={props.fullDeckData.extra.searchFilterValue}
                         isClearable
                         clearWarningModalOpenHandler={props.clearWarningModalOpenHandler}
                         style={{ width: '100%', height: '27%', marginTop: '2%' }}
-                        type="Extra"
-                        title={(numCards) => 'Extra Deck Cards ' + numCards} />
+                        type="Extra" />
                 </Col>
                 <Col style={{ height: '100%' }} xs={3}>
                     <CardViewer
@@ -150,7 +153,21 @@ const deckControl = React.memo( (props) => {
             </Row>
         </Card.Body>
     </Card>
-})
+}
+
+const mapStateToProps = (state, ownProps) => {
+    const fullDeckData = state.deckControls[ownProps.title.toLowerCase()];
+    return { fullDeckData }
+}
+
+const mapDispatchToProps = {
+    cardClicked: selectCard,
+    sortCardsInSectionHandler: sortCards,
+    filterCardsInSectionHandler: filterCards,
+    clearWarningModalOpenHandler: openClearWarningModal,
+    enlargedCardModalOpenHandler: openEnlargedCardModal,
+    sendToHandler: sendCard
+}
 
 
-export default deckControl
+export default connect(mapStateToProps, mapDispatchToProps)(deckControl);

@@ -20,7 +20,6 @@ const creditsBox = (props) => {
         deck: getDeckControlObjWithCardIdsOnly(props.deck),
         trunk: getDeckControlObjWithCardIdsOnly(props.trunk)
     }
-    const deckAndTrunkString = JSON.stringify(deckAndTrunkData);
     return (
     <Container>
         <Card bg="warning" text="white">
@@ -29,13 +28,17 @@ const creditsBox = (props) => {
                 <Card.Title>Made with ReactJS</Card.Title>
                 <Button variant="dark" block href="https://github.com/AiyazN25/ygo-deckbuilder/tree/master">Source Code</Button>
                 Upload and download your deck+trunk data.
-                <Button as="a" 
-                href={'data:text/plain;charset=utf-8,' + encodeURIComponent(deckAndTrunkString)} 
-                download='DeckAndTrunkData.txt'
-                variant="success" block>Download Data</Button>
-                <input style={{display: 'inline-block', width: '100%', marginTop: '8px'}} 
-                type="file" 
-                onChange={props.onDataUpload} accept='.txt'/>
+                <Button 
+                    as="a" 
+                    href={'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(deckAndTrunkData))} 
+                    download='DeckAndTrunkData.txt'
+                    variant="success" block>
+                    Download Data
+                </Button>
+                <input 
+                    style={{display: 'inline-block', width: '100%', marginTop: '8px'}} 
+                    type="file" 
+                    onChange={props.onDataUpload} accept='.txt'/>
             </Card.Body>
         </Card>
     </Container>

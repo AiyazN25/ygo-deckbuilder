@@ -13,7 +13,7 @@ const cardTypes = {
     Extra: 'secondary'
 }
 
-const cardsSection = (props) => {
+const cardsSection = React.memo((props) => {
     const allYGOCardsArray = [];
     let i = 0;
     let totalCardsShownLimit = props.totalCardsShownLimit ? props.totalCardsShownLimit : Infinity
@@ -21,12 +21,7 @@ const cardsSection = (props) => {
     while (allYGOCardsArray.length < totalCardsShownLimit && i < props.cards.length) {
         let card = props.cards[i];
         let cardIndex = i; // to prevent the props.onCardClick function calls in the loop refer to the same lexical environment
-        // const typeOfCardSectionIsSide = props.type === "Side";
-        // const typeOfCardSectionIsExtraAndCardTypeIsAlsoExtra = props.type === "Extra" && extraDeckTypes.includes(card['type']);
-        // const typeOfCardSectionIsMainAndCardTypeIsAlsoMain = props.type === "Main" && !extraDeckTypes.includes(card['type']);
         const cardShouldRemainAfterFilterSearch = card["name"].toLowerCase().includes(props.searchFilterValue.toLowerCase());
-        // const shouldRenderCard = typeOfCardSectionIsSide ||
-        //     ((typeOfCardSectionIsExtraAndCardTypeIsAlsoExtra || typeOfCardSectionIsMainAndCardTypeIsAlsoMain) && cardShouldRemainAfterFilterSearch)
         if (cardShouldRemainAfterFilterSearch) {
             let cardListItem =
                 <ListGroup.Item
@@ -47,7 +42,8 @@ const cardsSection = (props) => {
             <Card.Header style={{ fontSize: '15px' }}>
                 <Row>
                     <Col xs={!props.isClearable ? 12 : 5}>
-                        {props.title(allYGOCardsArray.length)}
+                        {/* {props.title(allYGOCardsArray.length)} */}
+                        {props.type + ' Deck Cards: ' + allYGOCardsArray.length}
                     </Col>
                     {props.isSearchable &&
                         <Col xs={3}>
@@ -82,6 +78,6 @@ const cardsSection = (props) => {
             </Card.Body>
         </Card>
     )
-}
+})
 
 export default cardsSection;

@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from "react-redux";
+import { openEnlargedCardModal, sendCard } from '../../redux/actions/actionCreators';
 import Card from 'react-bootstrap/Card';
 import SearchBar from '../SearchBar/SearchBar';
 import Row from 'react-bootstrap/Row';
@@ -45,8 +47,11 @@ class AllCardsControl extends React.PureComponent {
         });
     }
 
-    handleFilter = (searchObj) => {
-        this.setState({ searchFilterValue: searchObj.searchFilterValue })
+    handleMainCardClick = (card) => {this.handleCardClick(card, 'main')}
+    handleExtraCardClick = (card) => {this.handleCardClick(card, 'extra')}
+
+    handleFilter = (_, __, searchFilterValue) => {
+        this.setState({ searchFilterValue })
     }
 
     showingSomeOfAllCardsTitle = (numCards) => {
@@ -89,7 +94,7 @@ class AllCardsControl extends React.PureComponent {
                             <CardsSection
                                 totalCardsShownLimit={150}
                                 searchFilterValue={this.state.searchFilterValue}
-                                onCardClick={(card) => this.handleCardClick(card, 'main')}
+                                onCardClick={this.handleMainCardClick}
                                 cards={this.state.main}
                                 style={{ width: '100%', height: '100%' }}
                                 type="Main"
@@ -106,7 +111,7 @@ class AllCardsControl extends React.PureComponent {
                             <CardsSection
                                 totalCardsShownLimit={150}
                                 searchFilterValue={this.state.searchFilterValue}
-                                onCardClick={(card) => this.handleCardClick(card, 'extra')}
+                                onCardClick={this.handleExtraCardClick}
                                 cards={this.state.extra}
                                 style={{ width: '100%', height: '200px', marginTop: '10px' }}
                                 type="Extra"
@@ -120,4 +125,9 @@ class AllCardsControl extends React.PureComponent {
     }
 }
 
-export default AllCardsControl;
+const mapDispatchToProps = {
+    enlargedCardModalOpenHandler: openEnlargedCardModal,
+    sendToHandler: sendCard
+}
+
+export default connect(null, mapDispatchToProps)(AllCardsControl);
