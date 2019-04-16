@@ -86,7 +86,7 @@ const getCardActions = function (inWhichDeckControl, inWhichCardSection, generic
     return cardActions;
 }
 
-const deckControl = (props) => {
+const deckControl = React.memo((props) => {
     const onCardClickInMainSection = useCallback((card, index) => { props.cardClicked(props.title.toLowerCase(), card, index, 'main') });
     const onCardClickInSideSection = useCallback((card, index) => { props.cardClicked(props.title.toLowerCase(), card, index, 'side') });
     const onCardClickInExtraSection = useCallback((card, index) => { props.cardClicked(props.title.toLowerCase(), card, index, 'extra') });
@@ -153,7 +153,7 @@ const deckControl = (props) => {
             </Row>
         </Card.Body>
     </Card>
-}
+})
 
 const mapStateToProps = (state, ownProps) => {
     const fullDeckData = state.deckControls[ownProps.title.toLowerCase()];

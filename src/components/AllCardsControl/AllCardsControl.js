@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import CardActions from '../CardActions/CardActions'
 import CardsSection from '../CardsSection/CardsSection';
 import CardViewer from '../CardViewer/CardViewer';
-import exampleCards from '../../assets/exampleCards';
+import * as exampleCards from '../../assets/exampleCards'  ;
 
 const extraDeckTypes = ["Synchro Monster", "Fusion Monster", "XYZ Monster", "Link Monster"];
 
@@ -19,7 +19,7 @@ class AllCardsControl extends React.PureComponent {
         this.state = {
             main: [],
             extra: [],
-            currentViewedCard: exampleCards()[0],
+            currentViewedCard: exampleCards.SLIFER,
             searchFilterValue: '',
             inWhichCardSectionCurrentCardViewedIs: null
         }
