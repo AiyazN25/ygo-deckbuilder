@@ -16,13 +16,13 @@
     "reselect": "^4.0.0"
   },
   "scripts": {
-    "now-build": "react-scripts build",
+    "now-build": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "test": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts test",
+    "eject": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
